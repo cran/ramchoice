@@ -2,28 +2,26 @@
 #' @title ramchoice Package: Generate Summary Statistics
 #'
 #' @description \code{sumData} generates summary statistics. Given a collection of
-#'   menus/choice problems and corresponding choices, \code{sumData} calculates the
-#'   number of occurrences of each menu/choice problem, as well as the estimated choice
+#'   choice problems and corresponding choices, \code{sumData} calculates the
+#'   number of occurrences of each choice problem, as well as the estimated choice
 #'   rule.
 #'
-#' This function is embedded in \code{\link{rAtte}}, hence not needed to be called
+#' This function is embedded in \code{\link{rAtte}}, hence is not needed to be called
 #'   separately.
 #'
-#' @param menu Numeric matrix of 0s and 1s, the collection of menus.
+#' @param menu Numeric matrix of 0s and 1s, the collection of choice problems.
 #' @param choice Numeric matrix of 0s and 1s, the collection of choices.
 #'
 #' @return
-#' \item{sumMenu}{Summary of menus/choice problems, with repetitions collapsed.}
-#' \item{sumProb}{Estimated choice rules as sample averages for different menus/choice problems.}
+#' \item{sumMenu}{Summary of choice problems, with repetitions collapsed.}
+#' \item{sumProb}{Estimated choice rules as sample averages for different choice problems.}
 #' \item{sumN}{Effective sample size for each menu.}
-#' \item{sumMsize}{Size of each menu/choice problem.}
-#' \item{sumProbVec}{Estimated choice rule as sample averages,
-#'   collapsed into a column vector.}
-#' \item{Sigma}{Estimated variance-covariance matrix for the choice rule,
-#'   scaled by relative sample sizes.}
+#' \item{sumMsize}{Size of each choice problem.}
+#' \item{sumProbVec}{Estimated choice rule as sample averages, collapsed into a column vector.}
+#' \item{Sigma}{Estimated variance-covariance matrix for the choice rule, scaled by relative sample sizes.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 #'
 #' @author
 #' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
@@ -112,6 +110,8 @@ sumData <- function(menu, choice) {
 
 }
 
+
+
 ################################################################################
 #' @title ramchoice Package: Generate Matrices of Constraints
 #'
@@ -121,13 +121,13 @@ sumData <- function(menu, choice) {
 #' This function is embedded in \code{\link{rAtte}}, hence not needed to be called
 #'   separately.
 #'
-#' @param sumMenu Numeric matrix, summary of menus, returned by \code{\link{sumData}}.
-#' @param sumMsize Numeric matrix, summary of menu sizes, returned by \code{\link{sumData}}.
+#' @param sumMenu Numeric matrix, summary of choice problems, returned by \code{\link{sumData}}.
+#' @param sumMsize Numeric matrix, summary of choice problem sizes, returned by \code{\link{sumData}}.
 #' @param pref_list Numeric matrix, each row corresponds to a preference. For example \code{c(2, 3, 1)} means
 #'   2 is preferred to 3 and to 1. When set to \code{NULL}, the default \code{c(1, 2, 3, ...)}
 #'   will be used.
 #' @param limDataCorr Boolean, whether assumes limited data (default is \code{TRUE}). When set to
-#'   \code{FALSE}, will assume all menus/choice problems are observed, hence no correction.
+#'   \code{FALSE}, will assume all choice problems are observed, hence no correction.
 #'
 #' @return
 #' \item{R}{Matrices of constraints, stacked vertically.}
@@ -135,7 +135,7 @@ sumData <- function(menu, choice) {
 #'   individual matrices of constraints.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 #'
 #' @author
 #' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
@@ -154,8 +154,7 @@ sumData <- function(menu, choice) {
 #' summaryStats <- sumData(menu, choice)
 #'
 #' # constraints
-#' constraints <- genMat(summaryStats$sumMenu,
-#'   summaryStats$sumMsize, NULL)
+#' constraints <- genMat(summaryStats$sumMenu, summaryStats$sumMsize)
 #' constraints$ConstN
 #' constraints$R[1:10, 1:10]
 #'

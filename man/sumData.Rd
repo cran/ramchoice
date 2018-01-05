@@ -7,27 +7,25 @@
 sumData(menu, choice)
 }
 \arguments{
-\item{menu}{Numeric matrix of 0s and 1s, the collection of menus.}
+\item{menu}{Numeric matrix of 0s and 1s, the collection of choice problems.}
 
 \item{choice}{Numeric matrix of 0s and 1s, the collection of choices.}
 }
 \value{
-\item{sumMenu}{Summary of menus/choice problems, with repetitions collapsed.}
-\item{sumProb}{Estimated choice rules as sample averages for different menus/choice problems.}
+\item{sumMenu}{Summary of choice problems, with repetitions collapsed.}
+\item{sumProb}{Estimated choice rules as sample averages for different choice problems.}
 \item{sumN}{Effective sample size for each menu.}
-\item{sumMsize}{Size of each menu/choice problem.}
-\item{sumProbVec}{Estimated choice rule as sample averages,
-  collapsed into a column vector.}
-\item{Sigma}{Estimated variance-covariance matrix for the choice rule,
-  scaled by relative sample sizes.}
+\item{sumMsize}{Size of each choice problem.}
+\item{sumProbVec}{Estimated choice rule as sample averages, collapsed into a column vector.}
+\item{Sigma}{Estimated variance-covariance matrix for the choice rule, scaled by relative sample sizes.}
 }
 \description{
 \code{sumData} generates summary statistics. Given a collection of
-  menus/choice problems and corresponding choices, \code{sumData} calculates the
-  number of occurrences of each menu/choice problem, as well as the estimated choice
+  choice problems and corresponding choices, \code{sumData} calculates the
+  number of occurrences of each choice problem, as well as the estimated choice
   rule.
 
-This function is embedded in \code{\link{rAtte}}, hence not needed to be called
+This function is embedded in \code{\link{rAtte}}, hence is not needed to be called
   separately.
 }
 \examples{
@@ -45,7 +43,7 @@ summaryStats$sumN[1]
 
 }
 \references{
-M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{A Random Attention Model}. Working Paper, University of Michigan.
+M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 }
 \author{
 Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.

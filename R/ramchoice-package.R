@@ -9,16 +9,16 @@
 #'   invalid.
 #'
 #' This package implements the estimation and inference procedures documented in
-#'   \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{Cattaneo, Ma, Masatlioglu and Suleymanov (2017)},
+#'   \href{http://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu and Suleymanov (2017)},
 #'   which utilizes standard choice data to partially identify and estimate decision
-#'   maker's preference. For statistical inference, different simulation-based critical values are provided.
+#'   maker's preference. For statistical inference, several simulation-based critical values are provided.
 #'
 #'   The following functions are provided: \code{\link{rAtte}} (the main function),
 #'   \code{\link{sumData}}, \code{\link{genMat}}. A simulated dataset
 #'   \code{\link{ramdata}} is also included for illustration purpose.
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 #'
 #' @author
 #' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.

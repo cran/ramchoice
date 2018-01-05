@@ -7,16 +7,16 @@
 genMat(sumMenu, sumMsize, pref_list = NULL, limDataCorr = TRUE)
 }
 \arguments{
-\item{sumMenu}{Numeric matrix, summary of menus, returned by \code{\link{sumData}}.}
+\item{sumMenu}{Numeric matrix, summary of choice problems, returned by \code{\link{sumData}}.}
 
-\item{sumMsize}{Numeric matrix, summary of menu sizes, returned by \code{\link{sumData}}.}
+\item{sumMsize}{Numeric matrix, summary of choice problem sizes, returned by \code{\link{sumData}}.}
 
 \item{pref_list}{Numeric matrix, each row corresponds to a preference. For example \code{c(2, 3, 1)} means
 2 is preferred to 3 and to 1. When set to \code{NULL}, the default \code{c(1, 2, 3, ...)}
 will be used.}
 
 \item{limDataCorr}{Boolean, whether assumes limited data (default is \code{TRUE}). When set to
-\code{FALSE}, will assume all menus/choice problems are observed, hence no correction.}
+\code{FALSE}, will assume all choice problems are observed, hence no correction.}
 }
 \value{
 \item{R}{Matrices of constraints, stacked vertically.}
@@ -38,14 +38,13 @@ data(ramdata)
 summaryStats <- sumData(menu, choice)
 
 # constraints
-constraints <- genMat(summaryStats$sumMenu,
-  summaryStats$sumMsize, NULL)
+constraints <- genMat(summaryStats$sumMenu, summaryStats$sumMsize)
 constraints$ConstN
 constraints$R[1:10, 1:10]
 
 }
 \references{
-M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://www-personal.umich.edu/~cattaneo/papers/Cattaneo-Ma-Masatlioglu-Suleymanov_2017_RAM.pdf}{A Random Attention Model}. Working Paper, University of Michigan.
+M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 }
 \author{
 Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
