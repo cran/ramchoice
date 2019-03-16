@@ -1,7 +1,7 @@
 ################################################################################
 #' @title ramdata: Simulated Data
 #'
-#' @description The file is a standard choice data containing 8000 observations. There are six alternatives in the
+#' @description The file is a standard choice data containing 9000 observations. There are five alternatives in the
 #'   grand set.
 #'
 #' See \code{\link{rAtte}} for estimation and inference using the data. \code{\link{sumData}}

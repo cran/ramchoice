@@ -2,21 +2,25 @@
 % Please edit documentation in R/rAtte_fun.R
 \name{genMat}
 \alias{genMat}
-\title{ramchoice Package: Generate Matrices of Constraints}
+\title{ramchoice Package: Generate Constraint Matrices}
 \usage{
-genMat(sumMenu, sumMsize, pref_list = NULL, limDataCorr = TRUE)
+genMat(sumMenu, sumMsize, pref_list = NULL, limDataCorr = TRUE,
+  attBinary = 1)
 }
 \arguments{
 \item{sumMenu}{Numeric matrix, summary of choice problems, returned by \code{\link{sumData}}.}
 
 \item{sumMsize}{Numeric matrix, summary of choice problem sizes, returned by \code{\link{sumData}}.}
 
-\item{pref_list}{Numeric matrix, each row corresponds to a preference. For example \code{c(2, 3, 1)} means
-2 is preferred to 3 and to 1. When set to \code{NULL}, the default \code{c(1, 2, 3, ...)}
+\item{pref_list}{Numeric matrix, each row corresponds to one preference. For example, \code{c(2, 3, 1)} means
+2 is preferred to 3 and to 1. When set to \code{NULL}, the default, \code{c(1, 2, 3, ...)},
 will be used.}
 
 \item{limDataCorr}{Boolean, whether assumes limited data (default is \code{TRUE}). When set to
-\code{FALSE}, will assume all choice problems are observed, hence no correction.}
+\code{FALSE}, will assume all choice problems are observed.}
+
+\item{attBinary}{Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
+should be imposed for binary choice problems (i.e., attentive at binaries).}
 }
 \value{
 \item{R}{Matrices of constraints, stacked vertically.}
@@ -24,18 +28,17 @@ will be used.}
   individual matrices of constraints.}
 }
 \description{
-\code{genMat} generates matrices of constraints, imposed by the monotonicity
-  assumption and preferences specified as the null hypotheses.
+\code{genMat} generates constraint matrices which correspond to (i) the monotonic
+  attention assumption, (ii) attentive at binaries restriction, and (iii) preferences specified as the null hypotheses.
 
-This function is embedded in \code{\link{rAtte}}, hence not needed to be called
-  separately.
+This function is embedded in \code{\link{rAtte}}.
 }
 \examples{
 # load data
 data(ramdata)
 
 # summary statistics
-summaryStats <- sumData(menu, choice)
+summaryStats <- sumData(ramdata$menu, ramdata$choice)
 
 # constraints
 constraints <- genMat(summaryStats$sumMenu, summaryStats$sumMsize)
@@ -44,7 +47,7 @@ constraints$R[1:10, 1:10]
 
 }
 \references{
-M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 }
 \author{
 Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.

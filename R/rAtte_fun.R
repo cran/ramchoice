@@ -6,8 +6,7 @@
 #'   number of occurrences of each choice problem, as well as the estimated choice
 #'   rule.
 #'
-#' This function is embedded in \code{\link{rAtte}}, hence is not needed to be called
-#'   separately.
+#' This function is embedded in \code{\link{rAtte}}.
 #'
 #' @param menu Numeric matrix of 0s and 1s, the collection of choice problems.
 #' @param choice Numeric matrix of 0s and 1s, the collection of choices.
@@ -21,7 +20,7 @@
 #' \item{Sigma}{Estimated variance-covariance matrix for the choice rule, scaled by relative sample sizes.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 #'
 #' @author
 #' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
@@ -37,7 +36,7 @@
 #' data(ramdata)
 #'
 #' # summary statistics
-#' summaryStats <- sumData(menu, choice)
+#' summaryStats <- sumData(ramdata$menu, ramdata$choice)
 #' nrow(summaryStats$sumMenu)
 #' min(summaryStats$sumN)
 #'
@@ -110,24 +109,23 @@ sumData <- function(menu, choice) {
 
 }
 
-
-
 ################################################################################
-#' @title ramchoice Package: Generate Matrices of Constraints
+#' @title ramchoice Package: Generate Constraint Matrices
 #'
-#' @description \code{genMat} generates matrices of constraints, imposed by the monotonicity
-#'   assumption and preferences specified as the null hypotheses.
+#' @description \code{genMat} generates constraint matrices which correspond to (i) the monotonic
+#'   attention assumption, (ii) attentive at binaries restriction, and (iii) preferences specified as the null hypotheses.
 #'
-#' This function is embedded in \code{\link{rAtte}}, hence not needed to be called
-#'   separately.
+#' This function is embedded in \code{\link{rAtte}}.
 #'
 #' @param sumMenu Numeric matrix, summary of choice problems, returned by \code{\link{sumData}}.
 #' @param sumMsize Numeric matrix, summary of choice problem sizes, returned by \code{\link{sumData}}.
-#' @param pref_list Numeric matrix, each row corresponds to a preference. For example \code{c(2, 3, 1)} means
-#'   2 is preferred to 3 and to 1. When set to \code{NULL}, the default \code{c(1, 2, 3, ...)}
+#' @param pref_list Numeric matrix, each row corresponds to one preference. For example, \code{c(2, 3, 1)} means
+#'   2 is preferred to 3 and to 1. When set to \code{NULL}, the default, \code{c(1, 2, 3, ...)},
 #'   will be used.
 #' @param limDataCorr Boolean, whether assumes limited data (default is \code{TRUE}). When set to
-#'   \code{FALSE}, will assume all choice problems are observed, hence no correction.
+#'   \code{FALSE}, will assume all choice problems are observed.
+#' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
+#'   should be imposed for binary choice problems (i.e., attentive at binaries).
 #'
 #' @return
 #' \item{R}{Matrices of constraints, stacked vertically.}
@@ -135,7 +133,7 @@ sumData <- function(menu, choice) {
 #'   individual matrices of constraints.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 #'
 #' @author
 #' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
@@ -151,7 +149,7 @@ sumData <- function(menu, choice) {
 #' data(ramdata)
 #'
 #' # summary statistics
-#' summaryStats <- sumData(menu, choice)
+#' summaryStats <- sumData(ramdata$menu, ramdata$choice)
 #'
 #' # constraints
 #' constraints <- genMat(summaryStats$sumMenu, summaryStats$sumMsize)
@@ -159,7 +157,7 @@ sumData <- function(menu, choice) {
 #' constraints$R[1:10, 1:10]
 #'
 #' @export
-genMat <- function(sumMenu, sumMsize, pref_list = NULL, limDataCorr=TRUE) {
+genMat <- function(sumMenu, sumMsize, pref_list = NULL, limDataCorr = TRUE, attBinary = 1) {
 
   # initializing preference, for the default
   if (length(as.vector(pref_list)) == 0) {
@@ -223,7 +221,22 @@ genMat <- function(sumMenu, sumMsize, pref_list = NULL, limDataCorr=TRUE) {
       }
     }
 
-
+    # now add constraints for attentive at binaries
+    index_menu_1 <- (1:length(sumMsize))[sumMsize == 2]
+    if (length(index_menu_1) > 0 & attBinary < 1) {
+      for (i_menu_1 in index_menu_1) { # enumerate all menus of size 2
+        menu_1 <- sumMenu[i_menu_1, ] # current menu
+        pos_1 <- sum(sumMsize[1:i_menu_1]) - 1
+        pos_2 <- sum(sumMsize[1:i_menu_1])
+        temp <- temp * 0
+        if (which(pref == which(menu_1 == 1)[1]) < which(pref == which(menu_1 == 1)[2])) {
+          temp[pos_1] <- -1; temp[pos_2] <- (1-attBinary)/attBinary
+        } else {
+          temp[pos_1] <- (1-attBinary)/attBinary; temp[pos_2] <- -1
+        }
+        R_temp <- rbind(R_temp, temp)
+      }
+    }
 
     # combine them
     R <- rbind(R, R_temp)

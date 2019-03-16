@@ -25,15 +25,14 @@ sumData(menu, choice)
   number of occurrences of each choice problem, as well as the estimated choice
   rule.
 
-This function is embedded in \code{\link{rAtte}}, hence is not needed to be called
-  separately.
+This function is embedded in \code{\link{rAtte}}.
 }
 \examples{
 # load data
 data(ramdata)
 
 # summary statistics
-summaryStats <- sumData(menu, choice)
+summaryStats <- sumData(ramdata$menu, ramdata$choice)
 nrow(summaryStats$sumMenu)
 min(summaryStats$sumN)
 
@@ -43,7 +42,7 @@ summaryStats$sumN[1]
 
 }
 \references{
-M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2017). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
 }
 \author{
 Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
