@@ -20,22 +20,22 @@
 #' \item{Sigma}{Estimated variance-covariance matrix for the choice rule, scaled by relative sample sizes.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy}, forthcoming.
 #'
 #' @author
-#' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
+#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
 #'
-#' Xinwei Ma (maintainer), University of Michigan. \email{xinweima@umich.edu}
+#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}
 #'
 #' Yusufcan Masatlioglu, University of Maryland. \email{yusufcan@umd.edu}
 #'
-#' Elchin Suleymanov, University of Michigan. \email{elchin@umich.edu}
+#' Elchin Suleymanov, Purdue University. \email{esuleyma@purdue.edu}
 #'
 #' @examples
-#' # load data
+#' # Load data
 #' data(ramdata)
 #'
-#' # summary statistics
+#' # Generate summary statistics
 #' summaryStats <- sumData(ramdata$menu, ramdata$choice)
 #' nrow(summaryStats$sumMenu)
 #' min(summaryStats$sumN)
@@ -133,25 +133,25 @@ sumData <- function(menu, choice) {
 #'   individual matrices of constraints.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy}, forthcoming.
 #'
 #' @author
-#' Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
+#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
 #'
-#' Xinwei Ma (maintainer), University of Michigan. \email{xinweima@umich.edu}
+#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}
 #'
 #' Yusufcan Masatlioglu, University of Maryland. \email{yusufcan@umd.edu}
 #'
-#' Elchin Suleymanov, University of Michigan. \email{elchin@umich.edu}
+#' Elchin Suleymanov, Purdue University. \email{esuleyma@purdue.edu}
 #'
 #' @examples
-#' # load data
+#' # Load data
 #' data(ramdata)
 #'
-#' # summary statistics
+#' # Generate summary statistics
 #' summaryStats <- sumData(ramdata$menu, ramdata$choice)
 #'
-#' # constraints
+#' # Generate constraint matrices
 #' constraints <- genMat(summaryStats$sumMenu, summaryStats$sumMsize)
 #' constraints$ConstN
 #' constraints$R[1:10, 1:10]

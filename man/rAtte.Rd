@@ -4,9 +4,9 @@
 \alias{rAtte}
 \title{rAtte: Estimation and Inference in Random Attention Models}
 \usage{
-rAtte(menu, choice, pref_list = NULL, method = "GMS", nCritSimu = 2000,
-  BARatio2MS = 0.1, BARatio2UB = 0.1, MNRatioGMS = NULL,
-  limDataCorr = TRUE, attBinary = 1)
+rAtte(menu, choice, pref_list = NULL, method = "GMS",
+  nCritSimu = 2000, BARatio2MS = 0.1, BARatio2UB = 0.1,
+  MNRatioGMS = NULL, limDataCorr = TRUE, attBinary = 1)
 }
 \arguments{
 \item{menu}{Numeric matrix of 0s and 1s, the collection of choice problems.}
@@ -44,7 +44,7 @@ should be imposed for binary choice problems (i.e., attentive at binaries).}
 \item{method}{Method for constructing critical value.}
 }
 \description{
-Given a random sample with choice problems and choices, \code{rAtte}
+Given a random sample of choice problems and choices, \code{rAtte}
   returns test statistics, critical values and p-values against a collection of preferences.
   Five methods for choosing critical values are available:
   (i) \code{GMS}: generalized moment selection (plug-in (estimated) moment conditions with shrinkage);
@@ -58,12 +58,13 @@ Given a random sample with choice problems and choices, \code{rAtte}
   \code{\link{ramdata}} is also provided for illustration.
 }
 \examples{
-# load data
+# Load data
 data(ramdata)
 
-# seed, to replicate simulated critical values
+# Set seed, to replicate simulated critical values
 set.seed(42)
 
+# Inference based on the standard random attention model
 result <- rAtte(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
   pref_list=matrix(c(1, 2, 3, 4, 5,
                      2, 1, 3, 4, 5,
@@ -71,6 +72,7 @@ result <- rAtte(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
                      5, 4, 3, 2, 1), ncol=5, byrow=TRUE))
 summary(result)
 
+# Inference employing additional restrictions for binary choice problems
 result2 <- rAtte(menu = ramdata$menu, choice = ramdata$choice, method = "GMS", attBinary = 2/3,
   pref_list=matrix(c(1, 2, 3, 4, 5,
                      2, 1, 3, 4, 5,
@@ -80,14 +82,14 @@ summary(result2)
 
 }
 \references{
-M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. Working Paper, University of Michigan.
+M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy}, forthcoming.
 }
 \author{
-Matias D. Cattaneo, University of Michigan. \email{cattaneo@umich.edu}.
+Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
 
-Xinwei Ma (maintainer), University of Michigan. \email{xinweima@umich.edu}
+Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}
 
 Yusufcan Masatlioglu, University of Maryland. \email{yusufcan@umd.edu}
 
-Elchin Suleymanov, University of Michigan. \email{elchin@umich.edu}
+Elchin Suleymanov, Purdue University. \email{esuleyma@purdue.edu}
 }
