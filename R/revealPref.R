@@ -1,7 +1,7 @@
 ################################################################################
-#' @title rAtte: Estimation and Inference in Random Attention Models
+#' @title Revealed Preference Analysis in Random Limited Attention Models
 #'
-#' @description Given a random sample of choice problems and choices, \code{rAtte}
+#' @description Given a random sample of choice problems and choices, \code{revealPref}
 #'   returns test statistics, critical values and p-values against a collection of preferences.
 #'   Five methods for choosing critical values are available:
 #'   (i) \code{GMS}: generalized moment selection (plug-in (estimated) moment conditions with shrinkage);
@@ -12,7 +12,7 @@
 #'
 #' \code{\link{sumData}} is a low-level function that generates summary statistics, and
 #'   \code{\link{genMat}} can be used to construct the constraint matrices. The simulated dataset
-#'   \code{\link{ramdata}} is also provided for illustration.
+#'   \code{\link{ramdata}} is also provided for illustration. For revealed attention analysis, see \code{\link{revealAtte}}.
 #'
 #' @param menu Numeric matrix of 0s and 1s, the collection of choice problems.
 #' @param choice Numeric matrix of 0s and 1s, the collection of choices.
@@ -26,9 +26,13 @@
 #' @param BARatio2MS Numeric, beta-to-alpha ratio for two-step moment selection method. Default is \code{0.1}.
 #' @param BARatio2UB Numeric, beta-to-alpha ratio for two-step moment upper bound method. Default is \code{0.1}.
 #' @param MNRatioGMS Numeric, shrinkage parameter. Default is \code{sqrt(1/log(N))}, where N is the sample size.
-#' @param limDataCorr Boolean, whether assumes limited data (default is \code{TRUE}). When set to
-#'   \code{FALSE}, it will be assumed that all choice problems are observed.
-#' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restriction on the attention rule
+#' @param RAM Boolean, whether the restrictions implied by the random attention model of
+#'   Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
+#' @param AOM Boolean, whether the restrictions implied by the attention overload model of
+#'   Cattaneo, Cheung, Ma, and Masatlioglu (2021) should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
+#' @param limDataCorr Boolean, whether assuming limited data (default is \code{TRUE}). When set to
+#'   \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.
+#' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
 #'   should be imposed for binary choice problems (i.e., attentive at binaries).
 #'
 #' @return
@@ -40,10 +44,14 @@
 #' \item{method}{Method for constructing critical value.}
 #'
 #' @references
-#' M. D. Cattaneo, X. Ma, Y. Masatlioglu and E. Suleymanov (2019). \href{http://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy}, forthcoming.
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
+#'
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#'
+#' Paul Cheung, University of Maryland. \email{hycheung@umd.edu}
 #'
 #' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}
 #'
@@ -58,26 +66,37 @@
 #' # Set seed, to replicate simulated critical values
 #' set.seed(42)
 #'
-#' # Inference based on the standard random attention model
-#' result <- rAtte(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
-#'   pref_list=matrix(c(1, 2, 3, 4, 5,
-#'                      2, 1, 3, 4, 5,
-#'                      2, 3, 4, 5, 1,
-#'                      5, 4, 3, 2, 1), ncol=5, byrow=TRUE))
-#' summary(result)
+#' # list of preferences
+#' pref_list <- matrix(c(1, 2, 3, 4, 5,
+#'                       2, 1, 3, 4, 5,
+#'                       2, 3, 4, 5, 1,
+#'                       5, 4, 3, 2, 1), ncol=5, byrow=TRUE)
 #'
-#' # Inference employing additional restrictions for binary choice problems
-#' result2 <- rAtte(menu = ramdata$menu, choice = ramdata$choice, method = "GMS", attBinary = 2/3,
-#'   pref_list=matrix(c(1, 2, 3, 4, 5,
-#'                      2, 1, 3, 4, 5,
-#'                      2, 3, 4, 5, 1,
-#'                      5, 4, 3, 2, 1), ncol=5, byrow=TRUE))
+#' # revealed preference using only RAM restrictions
+#' result1 <- revealPref(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
+#'   pref_list = pref_list, RAM = TRUE, AOM = FALSE)
+#' summary(result1)
+#'
+#' # revealed preference using only AOM restrictions
+#' result2 <- revealPref(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
+#'   pref_list = pref_list, RAM = FALSE, AOM = TRUE)
 #' summary(result2)
 #'
+#' # revealed preference using both RAM and AOM restrictions
+#' result3 <- revealPref(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
+#'   pref_list = pref_list, RAM = TRUE, AOM = TRUE)
+#' summary(result3)
+#'
+#' # revealed preference employing additional restrictions for binary choice problems
+#' result4 <- revealPref(menu = ramdata$menu, choice = ramdata$choice, method = "GMS",
+#'   pref_list = pref_list, RAM = TRUE, AOM = TRUE, attBinary = 2/3)
+#' summary(result4)
+#'
 #' @export
-rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
+revealPref <- function(menu, choice, pref_list = NULL, method = "GMS",
                   nCritSimu = 2000,
                   BARatio2MS = 0.1, BARatio2UB = 0.1, MNRatioGMS = NULL,
+                  RAM = TRUE, AOM = TRUE,
                   limDataCorr = TRUE,
                   attBinary = 1) {
 
@@ -217,7 +236,7 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
   n <- sum(sumStats$sumN) # sample size
 
   # generate matrices
-  constraints <- genMat(sumStats$sumMenu, sumStats$sumMsize, pref_list, limDataCorr, attBinary)
+  constraints <- genMat(sumStats$sumMenu, sumStats$sumMsize, pref_list, RAM, AOM, limDataCorr, attBinary)
 
   # simulate normal distributions, scale by sample size since Sigma is asymptotically stable.
   normSimu <- t(mvrnorm(n=nCritSimu, mu=rep(0, nrow(sumStats$Sigma)), Sigma=sumStats$Sigma) / sqrt(n))
@@ -238,7 +257,7 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
       R_temp <- constraints$R[(j+1):(j+constraints$ConstN[i]), ]
       RSigma <- R_temp %*% sumStats$Sigma %*% t(R_temp)
 
-      tempTstat <- (R_temp %*% sumStats$sumProbVec) / sqrt(diag(RSigma))
+      tempTstat <- (R_temp %*% sumStats$sumProbVec) / sqrt(abs(diag(RSigma)))
       tempTstat[is.na(tempTstat)] <- 0
       tempTstat <- sqrt(n) * tempTstat
       Tstat[i] = max(max(tempTstat), 0) # maximum statistic
@@ -260,7 +279,7 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
       for (k in 1:nCritSimu) {
         # least favorable (also used for two-step methods)
         if (method %in% c("all", "lf", "2ms", "2ub")) {
-          temptemp <- (R_temp %*% normSimu[, k]) / sqrt(diag(RSigma))
+          temptemp <- (R_temp %*% normSimu[, k]) / sqrt(abs(diag(RSigma)))
           temptemp[is.na(temptemp)] <- 0
           temp[1, k] <- sqrt(n) * max(max(temptemp), 0)
           tempTstatSimu[, k] = sqrt(n) * temptemp
@@ -268,14 +287,14 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
 
         # generalized moment selection recentering
         if (method %in% c("all", "gms")) {
-          temptemp <- (R_temp %*% normSimu[, k] + centerGMS) / sqrt(diag(RSigma))
+          temptemp <- (R_temp %*% normSimu[, k] + centerGMS) / sqrt(abs(diag(RSigma)))
           temptemp[is.na(temptemp)] <- 0
           temp[3, k] <- sqrt(n) * max(max(temptemp), 0)
         }
 
         # plug-in center
         if (method %in% c("all", "pi")) {
-          temptemp <- (R_temp %*% normSimu[, k] + centerPI) / sqrt(diag(RSigma))
+          temptemp <- (R_temp %*% normSimu[, k] + centerPI) / sqrt(abs(diag(RSigma)))
           temptemp[is.na(temptemp)] <- 0
           temp[4, k] = sqrt(n) * max(max(temptemp), 0)
         }
@@ -305,12 +324,12 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
         for (i_level in 1:length(level)) {# enumerate all levels
           # refined moment selection / moment inequality upper-bounding
           if (method %in% c("all", "2ub")) {
-            centerUpper <- R_temp %*% sumStats$sumProbVec + sqrt(diag(RSigma)) / sqrt(n) *
+            centerUpper <- R_temp %*% sumStats$sumProbVec + sqrt(abs(diag(RSigma))) / sqrt(n) *
               quantile(temp[1, ], 1 - ((1-level[i_level]) * BARatio2UB))
             centerUpper[centerUpper > 0] <- 0
 
             for (k in 1:nCritSimu) {
-              temptemp <- (R_temp %*% normSimu[, k] + centerUpper) / sqrt(diag(RSigma))
+              temptemp <- (R_temp %*% normSimu[, k] + centerUpper) / sqrt(abs(diag(RSigma)))
               temptemp[is.na(temptemp)] <- 0
               temp[5, k] <- sqrt(n) * max(max(temptemp), 0)
             }
@@ -351,35 +370,106 @@ rAtte <- function(menu, choice, pref_list = NULL, method = "GMS",
                            PI =pValPI,
                            LF =pValLF),
                  pref=pref_list,
-                 method=method)
+                 method=method,
+                 opt=list(RAM=RAM, AOM=AOM, limDataCorr=limDataCorr, attBinary=attBinary))
 
-  class(Result) <- "CMMRandomAttention"
+  class(Result) <- "ramchoiceRevealPref"
   return(Result)
 }
 
 ################################################################################
+#' @title Revealed Preference Analysis in Random Limited Attention Models
+#'
+#' @description This has been replaced by \code{\link{revealPref}}.
+#'
+#' @param menu Numeric matrix of 0s and 1s, the collection of choice problems.
+#' @param choice Numeric matrix of 0s and 1s, the collection of choices.
+#' @param pref_list Numeric matrix, each row corresponds to one preference. For example, \code{c(2, 3, 1)} means
+#'   2 is preferred to 3 and to 1. When set to \code{NULL}, the default, \code{c(1, 2, 3, ...)},
+#'   will be used.
+#' @param method String, the method for constructing critical values. Default is \code{GMS} (generalized moment selection).
+#'   Other available options are \code{LF} (least favorable model), \code{PI} (plug-in method), \code{2MS} (two-step moment selection),
+#'   \code{2UB} (two-step moment upper bound), or \code{ALL} (report all critical values).
+#' @param nCritSimu Integer, number of simulations used to construct the critical value. Default is \code{2000}.
+#' @param BARatio2MS Numeric, beta-to-alpha ratio for two-step moment selection method. Default is \code{0.1}.
+#' @param BARatio2UB Numeric, beta-to-alpha ratio for two-step moment upper bound method. Default is \code{0.1}.
+#' @param MNRatioGMS Numeric, shrinkage parameter. Default is \code{sqrt(1/log(N))}, where N is the sample size.
+#' @param RAM Boolean, whether the restrictions implied by the random attention model of
+#'   Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
+#' @param AOM Boolean, whether the restrictions implied by the attention overload model of
+#'   Cattaneo, Cheung, Ma, and Masatlioglu (2021) should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
+#' @param limDataCorr Boolean, whether assuming limited data (default is \code{TRUE}). When set to
+#'   \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.
+#' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
+#'   should be imposed for binary choice problems (i.e., attentive at binaries).
+#'
+#' @return
+#' \item{sumStats}{Summary statistics, generated by \code{\link{sumData}}.}
+#' \item{constraints}{Matrices of constraints, generated by \code{\link{genMat}}.}
+#' \item{Tstat}{Test statistic.}
+#' \item{critVal}{Critical values.}
+#' \item{pVal}{P-values (only available for \code{GMS}, \code{LF} and \code{PI}).}
+#' \item{method}{Method for constructing critical value.}
+#'
+#' @references
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
+#'
+#' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' @author
+#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#'
+#' Paul Cheung, University of Maryland. \email{hycheung@umd.edu}
+#'
+#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}
+#'
+#' Yusufcan Masatlioglu, University of Maryland. \email{yusufcan@umd.edu}
+#'
+#' Elchin Suleymanov, Purdue University. \email{esuleyma@purdue.edu}
+#'
+#' @export
+rAtte <- revealPref
+
+################################################################################
 #' Internal function.
 #'
-#' @param object Class \code{CMMRandomAttention} objects.
+#' @param object Class \code{ramchoiceRevealPref} objects.
 #'
 #' @keywords internal
 #' @export
-summary.CMMRandomAttention <- function(object, ...) {
+summary.ramchoiceRevealPref <- function(object, ...) {
   x <- object
-  cat("\n Inference in Random Attention Models.\n")
+  cat("\n Revealed Preference Analysis in Random Limited Attention Models.\n")
   cat("\n")
 
-  cat(paste(format("Number of obs", width=25), toString(sum(x$sumStats$sumN)), sep="")); cat("\n")
-  cat(paste(format("Number of elements", width=25), toString(ncol(x$sumStats$sumMenu)), sep="")); cat("\n")
-  cat(paste(format("Number of menus", width=25), toString(nrow(x$sumStats$sumMenu)), sep="")); cat("\n")
+  cat(paste(format("# of observations", width=25), toString(sum(x$sumStats$sumN)), sep="")); cat("\n")
+  cat(paste(format("# of alternatives", width=25), toString(ncol(x$sumStats$sumMenu)), sep="")); cat("\n")
+  cat(paste(format("# of choice problems", width=25), toString(nrow(x$sumStats$sumMenu)), sep="")); cat("\n")
   cat("\n")
 
-  cat(paste(format("Min elements in menu", width=25), toString(min(x$sumStats$sumMsize)), sep="")); cat("\n")
-  cat(paste(format("Max elements in menu", width=25), toString(max(x$sumStats$sumMsize)), sep="")); cat("\n")
+  cat(paste(format("Min # of alternatives", width=25), toString(min(x$sumStats$sumMsize)), sep="")); cat("\n")
+  cat(paste(format("Max # of alternatives", width=25), toString(max(x$sumStats$sumMsize)), sep="")); cat("\n")
   cat("\n")
 
   cat(paste(format("Min eff. observations", width=25), toString(min(x$sumStats$sumN)), sep="")); cat("\n")
   cat(paste(format("Max eff. observations", width=25), toString(max(x$sumStats$sumN)), sep="")); cat("\n")
+  cat("\n")
+
+  if (x$opt$RAM) {
+    if (x$opt$limDataCorr) {
+      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+    } else {
+      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+    }
+  }
+
+  if (x$opt$AOM) {
+    cat(format("AOM restrictions from Cattaneo, Cheung, Ma, and Masatlioglu (2021) employed.", width=100)); cat("\n")
+  }
+
+  if (x$opt$attBinary < 1) {
+    cat(paste(format("Attentive-at-binaries restrictions employed with threshold ", width=59), toString(round(x$opt$attBinary, 3)), sep="")); cat("\n")
+  }
   cat("\n")
 
   if (x$method %in% c("all")) {
@@ -519,26 +609,42 @@ summary.CMMRandomAttention <- function(object, ...) {
 ################################################################################
 #' Internal function.
 #'
-#' @param object Class \code{CMMRandomAttention} objects.
+#' @param object Class \code{ramchoiceRevealPref} objects.
 #'
 #' @keywords internal
 #' @export
-print.CMMRandomAttention <- function(x, ...) {
-  cat("\n")
-  cat("\n Inference in Random Attention Models.\n")
-  cat("\n")
-
-  cat(paste(format("Number of obs", width=25), toString(sum(x$sumStats$sumN)), sep="")); cat("\n")
-  cat(paste(format("Number of elements", width=25), toString(ncol(x$sumStats$sumMenu)), sep="")); cat("\n")
-  cat(paste(format("Number of menus", width=25), toString(nrow(x$sumStats$sumMenu)), sep="")); cat("\n")
+print.ramchoiceRevealPref <- function(x, ...) {
+  cat("\n Revealed Preference Analysis in Random Limited Attention Models.\n")
   cat("\n")
 
-  cat(paste(format("Min elements in menu", width=25), toString(min(x$sumStats$sumMsize)), sep="")); cat("\n")
-  cat(paste(format("Max elements in menu", width=25), toString(max(x$sumStats$sumMsize)), sep="")); cat("\n")
+  cat(paste(format("# of observations", width=25), toString(sum(x$sumStats$sumN)), sep="")); cat("\n")
+  cat(paste(format("# of alternatives", width=25), toString(ncol(x$sumStats$sumMenu)), sep="")); cat("\n")
+  cat(paste(format("# of choice problems", width=25), toString(nrow(x$sumStats$sumMenu)), sep="")); cat("\n")
+  cat("\n")
+
+  cat(paste(format("Min # of alternatives", width=25), toString(min(x$sumStats$sumMsize)), sep="")); cat("\n")
+  cat(paste(format("Max # of alternatives", width=25), toString(max(x$sumStats$sumMsize)), sep="")); cat("\n")
   cat("\n")
 
   cat(paste(format("Min eff. observations", width=25), toString(min(x$sumStats$sumN)), sep="")); cat("\n")
   cat(paste(format("Max eff. observations", width=25), toString(max(x$sumStats$sumN)), sep="")); cat("\n")
+  cat("\n")
+
+  if (x$opt$RAM) {
+    if (x$opt$limDataCorr) {
+      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+    } else {
+      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+    }
+  }
+
+  if (x$opt$AOM) {
+    cat(format("AOM restrictions from Cattaneo, Cheung, Ma, and Masatlioglu (2021) employed.", width=100)); cat("\n")
+  }
+
+  if (x$opt$attBinary < 1) {
+    cat(paste(format("Attentive-at-binaries restrictions employed with threshold ", width=59), toString(round(x$opt$attBinary, 3)), sep="")); cat("\n")
+  }
   cat("\n")
 
   if (x$method %in% c("all")) {

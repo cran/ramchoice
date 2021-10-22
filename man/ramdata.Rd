@@ -5,16 +5,18 @@
 \alias{ramdata}
 \alias{menu}
 \alias{choice}
-\title{ramdata: Simulated Data}
-\format{\describe{
+\title{ramdata: Simulated Choice Data}
+\format{
+\describe{
   \item{menu}{Numeric matrix of 0s and 1s, choice problems (1 indicates an alternative in the choice problem and 0 otherwise).}
   \item{choice}{Numeric matrix of 0s and 1s, choices (1 indicates an alternative being chosen).}
-}}
+}
+}
 \description{
 The file contains a standard choice data of 9,000 observations.
   There are five alternatives in the grand set.
 
-See \code{\link{rAtte}} for estimation and inference using the data. \code{\link{sumData}}
-  is a low-level function that computes summary statistics, and \code{\link{genMat}} generates
-  constraint matrices subject to given preferences.
+See \code{\link{revealPref}} for revealed preference analysis, and \code{\link{revealAtte}}
+  for revealed attention. \code{\link{sumData}} is a low-level function that computes summary
+  statistics, and \code{\link{genMat}} generates constraint matrices subject to given preferences.
 }
