@@ -25,8 +25,8 @@ logitSimu(n, uSize, mSize, a)
   attracts is assumed to be proportional to its size: \code{|T|^a}, where \code{a} is a parameter that one can specify. It will be assumed that
   the first alternative is the most preferred, and that the last alternative is the least preferred.
 
-  This function is useful for replicating the simulation results in Cattaneo, Ma, Masatlioglu, and Suleymanov (2020),
-  and Cattaneo, Cheung, Ma, and Masatlioglu (2021).
+  This function is useful for replicating the simulation results in \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)},
+  and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)}.
 }
 \examples{
 set.seed(42)
@@ -36,9 +36,9 @@ logitSimu(n = 5, uSize = 6, mSize = 5, a = 2)
 \references{
 R. L. Brady and J. Rehbeck (2016). Menu-Dependent Stochastic Feasibility. \emph{Econometrica} 84(3): 1203-1223. \doi{10.3982/ECTA12694}
 
-M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-
 M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+
+M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 }
 \author{
 Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

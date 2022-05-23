@@ -40,11 +40,11 @@ Other available options are \code{LF} (least favorable model), \code{PI} (plug-i
 
 \item{MNRatioGMS}{Numeric, shrinkage parameter. Default is \code{sqrt(1/log(N))}, where N is the sample size.}
 
-\item{RAM}{Boolean, whether the restrictions implied by the random attention model of
-Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).}
+\item{RAM}{Boolean, whether the restrictions implied by the RAM of
+\href{https://arxiv.org/abs/1712.03448}{Cattaneo et al. (2020)} should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).}
 
-\item{AOM}{Boolean, whether the restrictions implied by the attention overload model of
-Cattaneo, Cheung, Ma, and Masatlioglu (2021) should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).}
+\item{AOM}{Boolean, whether the restrictions implied by the AOM of
+\href{https://arxiv.org/abs/2110.10650}{Cattaneo et al. (2022)} should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).}
 
 \item{limDataCorr}{Boolean, whether assuming limited data (default is \code{TRUE}). When set to
 \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.}
@@ -109,9 +109,9 @@ summary(result4)
 
 }
 \references{
-M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-
 M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+
+M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 }
 \author{
 Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

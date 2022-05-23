@@ -26,10 +26,10 @@
 #' @param BARatio2MS Numeric, beta-to-alpha ratio for two-step moment selection method. Default is \code{0.1}.
 #' @param BARatio2UB Numeric, beta-to-alpha ratio for two-step moment upper bound method. Default is \code{0.1}.
 #' @param MNRatioGMS Numeric, shrinkage parameter. Default is \code{sqrt(1/log(N))}, where N is the sample size.
-#' @param RAM Boolean, whether the restrictions implied by the random attention model of
-#'   Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
-#' @param AOM Boolean, whether the restrictions implied by the attention overload model of
-#'   Cattaneo, Cheung, Ma, and Masatlioglu (2021) should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
+#' @param RAM Boolean, whether the restrictions implied by the RAM of
+#'   \href{https://arxiv.org/abs/1712.03448}{Cattaneo et al. (2020)} should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
+#' @param AOM Boolean, whether the restrictions implied by the AOM of
+#'   \href{https://arxiv.org/abs/2110.10650}{Cattaneo et al. (2022)} should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
 #' @param limDataCorr Boolean, whether assuming limited data (default is \code{TRUE}). When set to
 #'   \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.
 #' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
@@ -44,9 +44,9 @@
 #' \item{method}{Method for constructing critical value.}
 #'
 #' @references
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -394,10 +394,10 @@ revealPref <- function(menu, choice, pref_list = NULL, method = "GMS",
 #' @param BARatio2MS Numeric, beta-to-alpha ratio for two-step moment selection method. Default is \code{0.1}.
 #' @param BARatio2UB Numeric, beta-to-alpha ratio for two-step moment upper bound method. Default is \code{0.1}.
 #' @param MNRatioGMS Numeric, shrinkage parameter. Default is \code{sqrt(1/log(N))}, where N is the sample size.
-#' @param RAM Boolean, whether the restrictions implied by the random attention model of
-#'   Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
-#' @param AOM Boolean, whether the restrictions implied by the attention overload model of
-#'   Cattaneo, Cheung, Ma, and Masatlioglu (2021) should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
+#' @param RAM Boolean, whether the restrictions implied by the RAM of
+#'   \href{https://arxiv.org/abs/1712.03448}{Cattaneo et al. (2020)} should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
+#' @param AOM Boolean, whether the restrictions implied by the AOM of
+#'   \href{https://arxiv.org/abs/2110.10650}{Cattaneo et al. (2022)} should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
 #' @param limDataCorr Boolean, whether assuming limited data (default is \code{TRUE}). When set to
 #'   \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.
 #' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
@@ -412,9 +412,9 @@ revealPref <- function(menu, choice, pref_list = NULL, method = "GMS",
 #' \item{method}{Method for constructing critical value.}
 #'
 #' @references
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -632,14 +632,14 @@ print.ramchoiceRevealPref <- function(x, ...) {
 
   if (x$opt$RAM) {
     if (x$opt$limDataCorr) {
-      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+      cat(format("RAM restrictions employed.", width=100)); cat("\n")
     } else {
-      cat(format("RAM restrictions from Cattaneo, Ma, Masatlioglu, and Suleymanov (2020) employed.", width=100)); cat("\n")
+      cat(format("RAM restrictions employed.", width=100)); cat("\n")
     }
   }
 
   if (x$opt$AOM) {
-    cat(format("AOM restrictions from Cattaneo, Cheung, Ma, and Masatlioglu (2021) employed.", width=100)); cat("\n")
+    cat(format("AOM restrictions employed.", width=100)); cat("\n")
   }
 
   if (x$opt$attBinary < 1) {

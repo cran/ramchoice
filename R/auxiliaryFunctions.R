@@ -20,9 +20,9 @@
 #' \item{Sigma}{Estimated variance-covariance matrix for the choice rule, scaled by relative sample sizes.}
 #'
 #' @references
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -143,9 +143,9 @@ sumData <- function(menu, choice) {
 #'   individual matrices of constraints.}
 #'
 #' @references
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -314,8 +314,8 @@ genMat <- function(sumMenu, sumMsize, pref_list = NULL, RAM = TRUE, AOM = TRUE, 
 #'   attracts is assumed to be proportional to its size: \code{|T|^a}, where \code{a} is a parameter that one can specify. It will be assumed that
 #'   the first alternative is the most preferred, and that the last alternative is the least preferred.
 #'
-#'   This function is useful for replicating the simulation results in Cattaneo, Ma, Masatlioglu, and Suleymanov (2020),
-#'   and Cattaneo, Cheung, Ma, and Masatlioglu (2021).
+#'   This function is useful for replicating the simulation results in \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)},
+#'   and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)}.
 #'
 #' @param mSize Positive integer, size of the choice problem.
 #' @param a Numeric, the parameter of the logit attention rule.
@@ -327,9 +327,9 @@ genMat <- function(sumMenu, sumMsize, pref_list = NULL, RAM = TRUE, AOM = TRUE, 
 #' @references
 #' R. L. Brady and J. Rehbeck (2016). Menu-Dependent Stochastic Feasibility. \emph{Econometrica} 84(3): 1203-1223. \doi{10.3982/ECTA12694}
 #'
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -399,8 +399,8 @@ logitAtte <- function(mSize = NULL, a = NULL) {
 #'   attracts is assumed to be proportional to its size: \code{|T|^a}, where \code{a} is a parameter that one can specify. It will be assumed that
 #'   the first alternative is the most preferred, and that the last alternative is the least preferred.
 #'
-#'   This function is useful for replicating the simulation results in Cattaneo, Ma, Masatlioglu, and Suleymanov (2020),
-#'   and Cattaneo, Cheung, Ma, and Masatlioglu (2021).
+#'   This function is useful for replicating the simulation results in \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)},
+#'   and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)}.
 #'
 #' @param n Positive integer, the effective sample size for each choice problem.
 #' @param uSize Positive integer, total number of alternatives.
@@ -414,9 +414,9 @@ logitAtte <- function(mSize = NULL, a = NULL) {
 #' @references
 #' R. L. Brady and J. Rehbeck (2016). Menu-Dependent Stochastic Feasibility. \emph{Econometrica} 84(3): 1203-1223. \doi{10.3982/ECTA12694}
 #'
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

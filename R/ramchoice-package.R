@@ -10,8 +10,8 @@
 #'   preference theory invalid.
 #'
 #' This package implements the estimation and inference procedures documented in
-#'   Cattaneo, Ma, Masatlioglu, and Suleymanov (2020),
-#'   and Cattaneo, Cheung, Ma, and Masatlioglu (2021),
+#'   \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)},
+#'   and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)},
 #'   which utilize standard choice data to partially identify decision
 #'   maker's preference and attention. For statistical inference, several simulation-based
 #'   critical values are provided.
@@ -22,9 +22,9 @@
 #'   A simulated dataset \code{\link{ramdata}} is also included for illustration purposes.
 #'
 #' @references
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2021). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
-#'
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
+#'
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
