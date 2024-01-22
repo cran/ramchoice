@@ -7,7 +7,7 @@
 \method{print}{ramchoiceRevealAtte}(x, ...)
 }
 \arguments{
-\item{object}{Class \code{ramchoiceRevealAtte} objects.}
+\item{x}{Class \code{ramchoiceRevealAtte} objects.}
 }
 \description{
 Internal function.

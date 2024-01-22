@@ -3,7 +3,7 @@
 #'
 #' @description Given a random sample of choice problems and choices, \code{revealAtte}
 #'   returns the upper and lower bounds on the attention frequency following the construction
-#'   of \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)}.
+#'   of \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2024)}.
 #'
 #' \code{\link{sumData}} is a low-level function that generates summary statistics. For
 #'   revealed preference analysis, see \code{\link{revealPref}}.
@@ -32,7 +32,7 @@
 #' @references
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
 #'
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2024). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -364,7 +364,7 @@ summary.ramchoiceRevealAtte <- function(object, ...) {
 ################################################################################
 #' Internal function.
 #'
-#' @param object Class \code{ramchoiceRevealAtte} objects.
+#' @param x Class \code{ramchoiceRevealAtte} objects.
 #'
 #' @keywords internal
 #' @export

@@ -2,8 +2,8 @@
 % Please edit documentation in R/ramchoice-package.R
 \docType{package}
 \name{ramchoice-package}
+\alias{ramchoice}
 \alias{ramchoice-package}
-\alias{_PACKAGE}
 \title{ramchoice: Revealed Preference and Attention Analysis in Random Limited Attention Models}
 \description{
 Information about socio-economic agent's preference (consumer,
@@ -16,7 +16,7 @@ Information about socio-economic agent's preference (consumer,
 
 This package implements the estimation and inference procedures documented in
   \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)},
-  and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)},
+  and \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2024)},
   which utilize standard choice data to partially identify decision
   maker's preference and attention. For statistical inference, several simulation-based
   critical values are provided.
@@ -29,7 +29,7 @@ This package implements the estimation and inference procedures documented in
 \references{
 M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
 
-M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
+M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2024). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 }
 \author{
 Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

@@ -7,7 +7,7 @@
 \method{print}{ramchoiceRevealPrefModel}(x, ...)
 }
 \arguments{
-\item{object}{Class \code{ramchoiceRevealPrefModel} objects.}
+\item{x}{Class \code{ramchoiceRevealPrefModel} objects.}
 }
 \description{
 Internal function.

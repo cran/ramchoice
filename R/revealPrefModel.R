@@ -6,7 +6,7 @@
 #' the Random Attention Model (RAM) of
 #' \href{https://arxiv.org/abs/1712.03448}{Cattaneo, Ma, Masatlioglu, and Suleymanov (2020)}
 #' and/or the Attention Overload Model (AOM) of
-#' \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2022)}.
+#' \href{https://arxiv.org/abs/2110.10650}{Cattaneo, Cheung, Ma, and Masatlioglu (2024)}.
 #'
 #' See \code{\link{revealPref}} for revealed preference analysis with empirical choice data.
 #'
@@ -18,7 +18,7 @@
 #' @param RAM Boolean, whether the restrictions implied by the RAM of
 #'   \href{https://arxiv.org/abs/1712.03448}{Cattaneo et al. (2020)} should be incorporated, that is, their monotonic attention assumption (default is \code{TRUE}).
 #' @param AOM Boolean, whether the restrictions implied by the AOM of
-#'   \href{https://arxiv.org/abs/2110.10650}{Cattaneo et al. (2022)} should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
+#'   \href{https://arxiv.org/abs/2110.10650}{Cattaneo et al. (2024)} should be incorporated, that is, their attention overload assumption (default is \code{TRUE}).
 #' @param limDataCorr Boolean, whether assuming limited data (default is \code{TRUE}). When set to
 #'   \code{FALSE}, will assume all choice problems are observed. This option only applies when \code{RAM} is set to \code{TRUE}.
 #' @param attBinary Numeric, between 1/2 and 1 (default is \code{1}), whether additional restrictions (on the attention rule)
@@ -31,7 +31,7 @@
 #' @references
 #' M. D. Cattaneo, X. Ma, Y. Masatlioglu, and E. Suleymanov (2020). \href{https://arxiv.org/abs/1712.03448}{A Random Attention Model}. \emph{Journal of Political Economy} 128(7): 2796-2836. \doi{10.1086/706861}
 #'
-#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2022). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
+#' M. D. Cattaneo, P. Cheung, X. Ma, and Y. Masatlioglu (2024). \href{https://arxiv.org/abs/2110.10650}{Attention Overload}. Working paper.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -208,7 +208,7 @@ summary.ramchoiceRevealPrefModel <- function(object, ...) {
 ################################################################################
 #' Internal function.
 #'
-#' @param object Class \code{ramchoiceRevealPrefModel} objects.
+#' @param x Class \code{ramchoiceRevealPrefModel} objects.
 #'
 #' @keywords internal
 #' @export
